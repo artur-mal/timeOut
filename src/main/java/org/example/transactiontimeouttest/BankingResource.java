@@ -28,16 +28,23 @@ public class BankingResource {
     @GET
     @Path("/deposit")
     public Response deposit(@QueryParam("accountId") Long accountId, @QueryParam("amount") double amount) {
-        bankingService.deposit(accountId, amount);
-        return Response.ok("Deposit successful").build();
+        try {
+            bankingService.deposit(accountId, amount);
+            return Response.ok("Deposit successful").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Deposit failed: " + e.getMessage())
+                    .build();
+        }
     }
-
+/*
     @GET
     @Path("/withdraw")
     public Response withdraw(@QueryParam("accountId") Long accountId, @QueryParam("amount") double amount) {
         bankingService.withdraw(accountId, amount);
         return Response.ok("Withdrawal successful").build();
     }
+  */
     @GET
     @Path("/accounts")
     @Produces(MediaType.APPLICATION_JSON)
