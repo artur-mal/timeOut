@@ -113,10 +113,4 @@ public class BankingService {
         }
     }
 
-
-
-    public List<Account> getAllAccounts() {
-        TypedQuery<Account> query = em.createQuery("SELECT a FROM Account a", Account.class);
-        return query.getResultList();
-    }
 }
